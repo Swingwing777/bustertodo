@@ -2,28 +2,30 @@
 <template>
   <div>
     <h1>To Do List</h1>
-    <input
-      v-model="currentTodo"
-      @keydown.enter="addTodo()"
-      placeholder="Add a task"
-    />
-    <button @click="addTodo()">Add</button>
+    <md-field>
+      <md-input
+        v-model="currentTodo"
+        @keydown.enter="addTodo()"
+        placeholder="Add a task"
+      />
+      <button @click="addTodo()">Add</button>
+    </md-field>
     <hr />
 
     <!-- Task entries -->
-    <ul class="todos">
+    <md-list class="todos">
       <draggable>
-        <li
+        <md-card
           v-for="todo in todos"
           :key="todo.id"
           :class="{ completed: todo.completed }"
         >
           <!-- checkbox -->
-          <input
+          <md-checkbox
             type="checkbox"
             v-model="todo.completed"
             @change="saveTodos()"
-          />
+          ></md-checkbox>
 
           <!-- Todo list item - alternates with editing field -->
           <span @dblclick="editTodo(todo)" v-show="editTodoId !== todo.id">
@@ -42,10 +44,13 @@
           </button>
 
           <!-- remove task -->
-          <button @click="removeTodo(todo)">Remove</button>
-        </li>
+          <button @click="removeTodo(todo)">
+            <span class="material-icons"> delete </span>
+          </button>
+          <!-- <md-divider></md-divider> -->
+        </md-card>
       </draggable>
-    </ul>
+    </md-list>
   </div>
 </template>
 
@@ -115,6 +120,10 @@ export default {
 </script>
 
 <style>
+div {
+  max-width: 80%;
+}
+
 ul {
   list-style: none;
 }
