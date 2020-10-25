@@ -12,35 +12,46 @@
 
     <!-- Task entries -->
     <ul class="todos">
-      <li v-for="todo in todos" :key="todo.id">
-        <!-- checkbox -->
-        <input type="checkbox" id="checkbox" v-model="todo.completed" />
-
-        <span
-          @dblclick="editTodo(todo)"
-          v-show="editTodoId !== todo.id"
+      <draggable>
+        <li
+          v-for="todo in todos"
+          :key="todo.id"
           :class="{ completed: todo.completed }"
         >
-          {{ todo.label }}
-        </span>
+          <!-- checkbox -->
+          <input
+            type="checkbox"
+            v-model="todo.completed"
+            @change="saveTodos()"
+          />
 
-        <!-- editTodo input field -->
-        <input
-          type="editTask"
-          v-model="todo.label"
-          v-show="editTodoId == todo.id"
-          @keydown.enter="saveEdit()"
-        />
-        <button @click="saveEdit()" v-show="editTodoId == todo.id">Save</button>
+          <!-- Todo list item - alternates with editing field -->
+          <span @dblclick="editTodo(todo)" v-show="editTodoId !== todo.id">
+            {{ todo.label }}
+          </span>
 
-        <!-- remove task -->
-        <button @click="removeTodo(todo)">Remove</button>
-      </li>
+          <!-- Task editing field -->
+          <input
+            type="editTask"
+            v-model="todo.label"
+            v-show="editTodoId == todo.id"
+            @keydown.enter="saveEdit()"
+          />
+          <button @click="saveEdit()" v-show="editTodoId == todo.id">
+            Save
+          </button>
+
+          <!-- remove task -->
+          <button @click="removeTodo(todo)">Remove</button>
+        </li>
+      </draggable>
     </ul>
   </div>
 </template>
 
 <script>
+import draggable from "vuedraggable";
+
 export default {
   data() {
     return {
@@ -49,6 +60,11 @@ export default {
       editTodoId: null,
     };
   },
+
+  components: {
+    draggable,
+  },
+
   mounted() {
     if (localStorage.getItem("todos")) {
       try {
@@ -99,7 +115,17 @@ export default {
 </script>
 
 <style>
+ul {
+  list-style: none;
+}
+
 .editing {
   display: none;
+}
+
+.completed {
+  opacity: 25%;
+  font-style: li;
+  text-decoration: line-through;
 }
 </style>
