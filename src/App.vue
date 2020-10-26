@@ -3,7 +3,7 @@
   <body>
     <div>
       <h1>To Do List</h1>
-      <md-card-header class="md-layout md-gutter">
+      <md-card-header class="md-layout">
         <md-field>
           <md-input
             class="taskInput md-layout-item"
@@ -22,64 +22,64 @@
 
       <!-- Task entries -->
 
-      <md-card v-if="todos.length > 0">
-        <md-list class="todos md-triple-line">
-          <draggable>
-            <md-list-item
-              v-for="todo in todos"
-              :key="todo.id"
-              class="md-layout todoItem"
-            >
-              <!-- checkbox -->
+      <!-- <md-card v-if="todos.length > 0"> -->
+      <md-list v-if="todos.length > 0" class="todos md-double-line">
+        <draggable>
+          <md-list-item
+            v-for="todo in todos"
+            :key="todo.id"
+            class="md-layout todoItem"
+          >
+            <!-- checkbox -->
 
+            <input
+              class="md-layout-item md-alignment-center-left md-size-10"
+              type="checkbox"
+              :disabled="editTodoId === todo.id"
+              :class="{ completed: todo.completed }"
+              v-model="todo.completed"
+              @change="saveTodos()"
+            />
+
+            <!-- Todo list item - alternates with editing field -->
+
+            <span
+              class="md-layout-item md-alignment-center-left"
+              :class="{ completed: todo.completed }"
+              @dblclick="editTodo(todo)"
+              :disabled="todo.completed"
+              v-show="editTodoId !== todo.id"
+            >
+              {{ todo.label.substring(0, 40) }}
+            </span>
+
+            <!-- Task editing field -->
+            <div
+              class="md-layout-item md-alignment-center-left"
+              v-show="editTodoId == todo.id"
+            >
               <input
-                class="md-layout-item md-alignment-center-left md-size-10"
-                type="checkbox"
-                :disabled="editTodoId === todo.id"
-                :class="{ completed: todo.completed }"
-                v-model="todo.completed"
-                @change="saveTodos()"
+                type="editTask"
+                :disabled="todo.completed"
+                v-model="todo.label"
+                @keydown.enter="saveEdit()"
               />
 
-              <!-- Todo list item - alternates with editing field -->
+              <button class="saveButton" @click="saveEdit()">Save</button>
+            </div>
 
-              <span
-                class="md-layout-item md-alignment-center-left"
-                :class="{ completed: todo.completed }"
-                @dblclick="editTodo(todo)"
-                :disabled="todo.completed"
-                v-show="editTodoId !== todo.id"
-              >
-                {{ todo.label.substring(0, 40) }}
-              </span>
-
-              <!-- Task editing field -->
-              <div
-                class="md-layout-item md-alignment-center-left"
-                v-show="editTodoId == todo.id"
-              >
-                <input
-                  type="editTask"
-                  :disabled="todo.completed"
-                  v-model="todo.label"
-                  @keydown.enter="saveEdit()"
-                />
-
-                <button class="saveButton" @click="saveEdit()">Save</button>
-              </div>
-
-              <!-- remove task -->
-              <button
-                @click="removeTodo(todo)"
-                class="md-layout-item md-alignment-center-right md-size-10"
-              >
-                <span class="md-icon md-size-1x"> delete </span>
-              </button>
-              <md-divider></md-divider>
-            </md-list-item>
-          </draggable>
-        </md-list>
-      </md-card>
+            <!-- remove task -->
+            <button
+              @click="removeTodo(todo)"
+              class="md-layout-item md-alignment-center-right md-size-10"
+            >
+              <span class="md-icon md-size-1x"> delete </span>
+            </button>
+            <md-divider></md-divider>
+          </md-list-item>
+        </draggable>
+      </md-list>
+      <!-- </md-card> -->
     </div>
   </body>
 </template>
@@ -181,16 +181,21 @@ header {
   border-radius: 7%;
   border: none;
 }
-
-.todoItem {
-  box-shadow: 1px 1px 2px rgb(180, 180, 180);
-}
-
-.md-input {
+.md-layout-item {
   height: auto;
 }
 
-.md-layout-item {
+/* .todos {
+  padding-top: 0;
+  padding-bottom: 5px;
+} */
+
+.todoItem {
+  border: 1px solid rgb(180, 180, 180);
+  box-shadow: 1px 2px 2px rgb(180, 180, 180);
+}
+
+.md-input {
   height: auto;
 }
 
