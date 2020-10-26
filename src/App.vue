@@ -206,7 +206,7 @@ header {
 } */
 
 .completed {
-  /* opacity: 70%; */
+  /* opacity: 70%;   Property removed, as incompatible with heroku and ghPages hosting*/
   text-decoration: line-through;
 }
 </style>
