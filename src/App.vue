@@ -206,7 +206,7 @@ header {
 } */
 
 .completed {
-  opacity: 70%;
+  /* opacity: 70%; */
   text-decoration: line-through;
 }
 </style>
