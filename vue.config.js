@@ -1,6 +1,6 @@
-// module.exports = {
-//   publicPath: '/bustertodo/'
-// }
+module.exports = {
+  publicPath: '/bustertodo/'
+}
 
 
 
