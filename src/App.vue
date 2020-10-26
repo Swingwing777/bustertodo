@@ -3,23 +3,22 @@
   <body>
     <div>
       <h1>To Do List</h1>
-      <header>
+      <md-card-header class="md-layout md-gutter">
         <md-field>
           <md-input
-            class="taskInput"
+            class="taskInput md-layout-item"
             v-model="currentTodo"
             @keydown.enter="addTodo()"
             placeholder="Add a task"
           />
           <md-button
-            class="md-raised md-primary"
+            class="md-raised md-primary md-layout-item md-size-20"
             :disabled="!currentTodo"
             @click="addTodo()"
             >Add</md-button
           >
         </md-field>
-      </header>
-      <hr />
+      </md-card-header>
 
       <!-- Task entries -->
 
@@ -29,12 +28,12 @@
             <md-list-item
               v-for="todo in todos"
               :key="todo.id"
-              class="md-layout md-alignment-top-between todoItem"
+              class="md-layout todoItem"
             >
               <!-- checkbox -->
 
               <input
-                class="checkbox md-layout-item md-size-5"
+                class="md-layout-item md-alignment-center-left md-size-10"
                 type="checkbox"
                 :disabled="editTodoId === todo.id"
                 :class="{ completed: todo.completed }"
@@ -45,9 +44,10 @@
               <!-- Todo list item - alternates with editing field -->
 
               <span
-                class="md-layout-item md-size-70"
+                class="md-layout-item md-alignment-center-left"
                 :class="{ completed: todo.completed }"
                 @dblclick="editTodo(todo)"
+                :disabled="todo.completed"
                 v-show="editTodoId !== todo.id"
               >
                 {{ todo.label.substring(0, 40) }}
@@ -55,11 +55,12 @@
 
               <!-- Task editing field -->
               <div
-                class="md-layout-item md-size-70"
+                class="md-layout-item md-alignment-center-left"
                 v-show="editTodoId == todo.id"
               >
                 <input
                   type="editTask"
+                  :disabled="todo.completed"
                   v-model="todo.label"
                   @keydown.enter="saveEdit()"
                 />
@@ -70,11 +71,11 @@
               <!-- remove task -->
               <button
                 @click="removeTodo(todo)"
-                class="md-layout-item md-size-10"
+                class="md-layout-item md-alignment-center-right md-size-10"
               >
                 <span class="md-icon md-size-1x"> delete </span>
               </button>
-              <!-- <md-divider></md-divider> -->
+              <md-divider></md-divider>
             </md-list-item>
           </draggable>
         </md-list>
@@ -185,6 +186,10 @@ header {
   box-shadow: 1px 1px 2px rgb(180, 180, 180);
 }
 
+.md-input {
+  height: auto;
+}
+
 .md-layout-item {
   height: auto;
 }
@@ -198,7 +203,7 @@ header {
 } */
 
 .completed {
-  opacity: 25%;
+  opacity: 70%;
   text-decoration: line-through;
 }
 </style>
