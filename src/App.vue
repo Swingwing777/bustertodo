@@ -22,7 +22,6 @@
 
       <!-- Task entries -->
 
-      <!-- <md-card v-if="todos.length > 0"> -->
       <md-list v-if="todos.length > 0" class="todos md-double-line">
         <draggable>
           <md-list-item
@@ -79,7 +78,6 @@
           </md-list-item>
         </draggable>
       </md-list>
-      <!-- </md-card> -->
     </div>
   </body>
 </template>
