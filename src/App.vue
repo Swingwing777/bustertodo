@@ -1,4 +1,3 @@
-// src/App.vue
 <template>
   <body>
     <div class="container md-elevation-3">
@@ -7,13 +6,13 @@
         <md-card-header class="md-layout">
           <md-field>
             <md-input
-              class="md-layout-item"
+              class="md-layout-item addPrompt"
               v-model="currentTodo"
               @keydown.enter="addTodo()"
               placeholder="Add a task"
             />
             <md-button
-              class="addButton md-raised md-primary md-layout-item md-size-20"
+              class="md-raised md-primary md-layout-item md-size-20 addButton"
               :disabled="!currentTodo"
               @click="addTodo()"
               >Add</md-button
@@ -73,7 +72,7 @@
                 @click="removeTodo(todo)"
                 class="md-layout-item md-alignment-center-right md-size-10"
               >
-                <span class="md-icon md-size-1x"> delete </span>
+                <span class="md-icon md-size-1x">delete</span>
               </button>
               <md-divider></md-divider>
             </md-list-item>
@@ -181,6 +180,10 @@ header {
   font-size: large;
 }
 
+.addprompt {
+  font-size: 30px;
+}
+
 .taskInput {
   margin-left: 10px;
   color: black;
@@ -190,6 +193,7 @@ header {
 
 .addButton {
   border: 1px solid black;
+  font-size: 36px;
 }
 
 .saveButton {
@@ -222,5 +226,21 @@ header {
 .completed {
   /* opacity: 70%;   Property removed, as incompatible with heroku and ghPages hosting*/
   text-decoration: line-through;
+}
+
+@media all and (min-width: 800px) and (max-width: 1000px) {
+  div {
+    max-width: 95%;
+  }
+
+  .addButton {
+    border: 1px solid black;
+    width: 20%;
+    font-size: 30px;
+  }
+
+  .taskPrompt {
+    font-size: xx-large;
+  }
 }
 </style>
