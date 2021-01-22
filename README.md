@@ -16,7 +16,7 @@ To Do! uses the following technologies:
 * [Vue Draggable] - Draggable Package.
 * [Heroku] or [GitHUb] - Hosting.
 * [Dillinger] - The Last Markdown Editor ever.
-* And of course 'To Do!'' itself is open source on [GitHub].
+* And of course 'To Do!' itself is open source on [GitHub].
 ----
 ### Installation:
 
